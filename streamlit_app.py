@@ -14,27 +14,18 @@ if "username" not in st.session_state:
 
 # --- LOGIN FORM ---
 def login_form():
-    st.title("🔐 Admin Login")
-
-    with st.form("login_form"):
-        username = st.text_input("Username")
+    with st.form("login"):
+        email = st.text_input("Email")
         password = st.text_input("Password", type="password")
-        submit = st.form_submit_button("Login")
+        submitted = st.form_submit_button("Login")
 
-    if submit:
-        res = requests.post(f"{API_BASE}/auth/login", json={
-            "email": username,
-            "password": password
-        })
-
-        if res.status_code == 200:
-            token = res.json().get("token")
-            st.session_state.auth_token = token
-            st.session_state.username = username
-            st.success("Logged in successfully!")
-            st.experimental_rerun()
-        else:
-            st.error("Invalid username or password.")
+        if submitted:
+            # Do login logic here
+            if email == "admin@example.com" and password == "secret":
+                st.session_state["is_logged_in"] = True
+                st.experimental_rerun()  # ✅ Valid here
+            else:
+                st.error("Invalid login")
 
 # --- FETCH LEADS ---
 def fetch_leads(token):

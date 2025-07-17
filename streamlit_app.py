@@ -23,7 +23,7 @@ def login_form():
 
     if submit:
         res = requests.post(f"{API_BASE}/auth/login", json={
-            "username": username,
+            "email": username,
             "password": password
         })
 
